@@ -1,38 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  subject { Post.new(title: 'hello man') }
+  subject do
+    user = User.new(name: 'Tom', photo: 'gama.png', bio: 'I am a decent programmer', posts_counter: 0)
+    Post.new(title: 'Wow', text: 'Hello moto',
+             likes_counter: 0, comments_counter: 0, user_id: user.id)
+  end
 
   before { subject.save }
 
-  it 'Posts should be not be Valid' do
-    subject.title = nil
-    expect(subject).to_not be_valid
+  it 'should check validation' do
+    expect(subject).to be_valid
   end
-  it 'User post counter to increment' do
-    subject.author = User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
-                              bio: 'Teacher from Mexico.')
-    subject.send(:posts_counter)
-    expect(subject.author.posts_counter).to be(1)
-  end
-  it 'Likes Counter attribute should be greater or equal to zero' do
-    subject.likes_counter = -1
-    expect(subject).to_not be_valid
-  end
-  it 'Comments Counter attribute should be an integer number' do
-    subject.comments_counter = 'some random string'
-    expect(subject).to_not be_valid
-  end
-  it 'five_last_comments method should return the last five comments' do
-    post = described_class.create(title: 'Post One', text: 'This is the post one')
-    author = User.first
 
-    post.comments = [
-      Comment.new({ author:, text: 'This is the comment one' }),
-      Comment.new({ author:, text: 'This is the comment two' })
-    ]
+  it 'should have 250 characters' do
+    subject.title = 'f' * 300
+    expect(subject).to_not be_valid
+  end
 
-    expect(post.last_comments.size).to be(2)
-    expect(post.last_comments.pluck(:id)).to match_array(post.comments.last(5).pluck(:id))
+  it 'should be invalid if comment counter is nil' do
+    subject.comments_counter = nil
+    expect(subject).to_not be_valid
+  end
+
+  it 'should be invalid if like counter is nil' do
+    subject.likes_counter = nil
+    expect(subject).to_not be_valid
+  end
+
+  it 'should return most recent comments' do
+    user = User.new(name: 'Tom', photo: 'image.png', bio: 'I am programer', posts_counter: 0)
+    comment1 = subject.comments.create!(user_id: user.id, text: 'hi')
+    comment2 = subject.comments.create!(user_id: user.id, text: 'hi')
+    comments = subject.return_five_comments
+    expect(comments.length).to eql 2
+    expect(comments).to match_array([comment1, comment2])
+  end
+
+  it 'should update user post  counter' do
+    expect(subject.user.posts_counter).to eql 1
   end
 end

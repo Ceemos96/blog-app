@@ -1,21 +1,19 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   subject do
-    @user = User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.')
-    subject { Comment.new(text: 'hello man') }
+    user = User.new(name: 'Tom', photo: 'image.png', bio: 'I am programmer', posts_counter: 0)
+    Post.new(title: 'Hello world', text: 'Helloworld',
+             likes_counter: 0, comments_counter: 0, user_id: user.id)
   end
 
   before { subject.save }
-  describe 'Test for the comments' do
-    it 'comments should be not be Valid' do
-      subject.text = nil
-      expect(subject).to_not be_valid
-    end
-    it 'Post comments counter can be set' do
-      subject.post = Post.new(author: @user, title: 'Post One', text: 'This is the post one')
-      subject.send(:comments_counter)
-      expect(subject.post.comments_counter).to eq(1)
-    end
+
+  it 'should return most recent comments' do
+    user = User.new(name: 'Tom', photo: 'image', bio: 'bio', posts_counter: 0)
+    subject.comments.create!(user_id: user.id, text: 'glad to see you')
+    subject.comments.create!(user_id: user.id, text: 'wow man')
+
+    expect(subject.comments_counter).to eql 2
   end
 end
