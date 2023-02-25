@@ -50,6 +50,11 @@ Blog App is a fully functional Ruby on Rails application that will show the list
 - **[View Blog posts]**
 - **[Add comments]**
 - **[View number of posts by user]**
+- **[A method that returns the 3 most recent posts for a given user.]**
+- **[A method that updates the posts counter for a user.]**
+- **[A method which returns the 5 most recent comments for a given post.]**
+- **[A method that updates the comments counter for a post.]**
+- **[A method that updates the likes counter for a post.]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
