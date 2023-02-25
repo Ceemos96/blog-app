@@ -81,6 +81,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chronic_duration (0.10.6)
+      numerizer (~> 0.1.1)
     concurrent-ruby (1.2.0)
     crass (1.0.6)
     date (3.3.3)
@@ -89,6 +91,8 @@ GEM
       reline (>= 0.2.7)
     diff-lcs (1.5.0)
     erubi (1.12.0)
+    faker (3.1.1)
+      i18n (>= 1.8.11, < 2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -128,6 +132,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.0-x64-mingw-ucrt)
       racc (~> 1.4)
+    numerizer (0.1.1)
     pg (1.4.5-x64-mingw-ucrt)
     public_suffix (5.0.1)
     puma (5.6.5)
@@ -167,10 +172,6 @@ GEM
     reline (0.3.0)
       io-console (~> 0.5)
     rexml (3.2.5)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
     rspec-core (3.12.1)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.2)
@@ -193,6 +194,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    spec (5.3.4)
+      chronic_duration (~> 0.10.2)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -236,14 +239,16 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  faker
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
-  rspec
   rspec-rails
+  rspec-support
   selenium-webdriver
+  spec
   sprockets-rails
   stimulus-rails
   turbo-rails

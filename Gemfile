@@ -32,7 +32,12 @@ group :development, :test do
 end
 
 # Build Spec
-gem 'rspec'
+gem 'spec'
+
+# faker for tests
+gem 'faker'
+
+gem 'rspec-support'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
